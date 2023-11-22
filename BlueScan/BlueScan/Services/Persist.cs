@@ -49,8 +49,6 @@ namespace BlueScan.Services
         {
             await _sync.WaitAsync();
             
-                // check can we connect to the web service
-
             try
             {
                 // check if anything's in the database and if so, 

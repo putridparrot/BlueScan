@@ -24,7 +24,6 @@ namespace BlueScan
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<OptionsPage>();
-            containerRegistry.RegisterForNavigation<AboutPage>();
             containerRegistry.RegisterForNavigation<MorePage>();
             containerRegistry.RegisterForNavigation<HistoryPage>();
             containerRegistry.RegisterForNavigation<ServicesPage>();
@@ -45,23 +44,11 @@ namespace BlueScan
             persist?.SynchronizeAsync();
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-            base.OnSleep();
-        }
-
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-            base.OnResume();
         }
     }
 }
