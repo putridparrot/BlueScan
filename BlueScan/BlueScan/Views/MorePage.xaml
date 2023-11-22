@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:views="clr-namespace:BlueScan.Views;assembly=BlueScan"
+             x:Class="BlueScan.Views.MorePage"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
+             Title="More">
+    <TabbedPage.Children>
+        <views:HistoryPage BindingContext="{Binding History}"/>
+        <views:ServicesPage BindingContext="{Binding Services}"/>
+    </TabbedPage.Children>
+    <!--<ContentPage.Content>
+        <Grid>
+            <Button Text="Close" Command="{Binding CloseCommand}" VerticalOptions="End" HorizontalOptions="Center" Margin="3"/>
+        </Grid>
+    </ContentPage.Content>-->
+</TabbedPage>

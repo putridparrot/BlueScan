@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:forms1="clr-namespace:SimpleCharts.Forms;assembly=SimpleCharts.Forms"
+             x:Class="BlueScan.Views.HistoryPage"
+             mvvm:ViewModelLocator.AutowireViewModel="False"
+             Title="History">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <forms1:ChartView Grid.Row="0" MinimumHeightRequest="200" HeightRequest="200">
+                <forms1:ChartView.Chart>
+                    <forms1:LineChart Entries="{Binding Entries}" LineMode="Spline" />
+                </forms1:ChartView.Chart>
+            </forms1:ChartView>
+            <Button Grid.Row="1" Text="Close" Command="{Binding CloseCommand}" VerticalOptions="End" HorizontalOptions="Center" Margin="3"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

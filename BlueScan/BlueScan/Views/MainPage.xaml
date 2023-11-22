@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:BlueScan.Converters;assembly=BlueScan"
+             xmlns:extensions="clr-namespace:BlueScan.Extensions;assembly=BlueScan"
+             NavigationPage.HasNavigationBar="True"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
+             Title="BlueScan LE"
+             x:Class="BlueScan.Views.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding ScanStatus}" Command="{Binding ScanCommand}" Order="Primary" IsEnabled="{Binding BluetoothDisabled, Converter={converters:NotConverter}}"/>
+        <ToolbarItem Text="Capture" Command="{Binding CaptureCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Clear Capture" Command="{Binding ClearCaptureCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Options" Command="{Binding OptionsCommand}" Order="Secondary"/>
+        <ToolbarItem Text="About" Command="{Binding AboutCommand}" Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" IsVisible="{Binding BluetoothDisabled}" BackgroundColor="Red" Padding="5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Bluetooth is disabled" 
+                       FontAttributes="Bold" VerticalOptions="Center" 
+                       TextColor="White" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                <Label Grid.Column="1" Text="Enable" FontAttributes="Bold" 
+                       VerticalOptions="Center" TextColor="White" 
+                       HorizontalOptions="End" FontSize="Medium">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnableCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <StackLayout Grid.Row="1">
+                <ListView ItemsSource="{Binding Devices}" HasUnevenRows="True" IsVisible="{Binding DevicesFound}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}"
+                      BackgroundColor="#FFECEBEB">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <ContentView Margin="1" BackgroundColor="White" Padding="2">
+                                    <!--<StackLayout HorizontalOptions="StartAndExpand">-->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <!-- image -->
+                                            <ColumnDefinition Width="Auto"/>
+                                            <!-- scan result -->
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0" Source="{Binding ManufacturerImage}" VerticalOptions="Start"
+                                               WidthRequest="24" HeightRequest="24" Margin="3"/>
+
+                                        <Grid Grid.Column="1" Margin="0,0,0,3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0" Text="BD Address:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding BdAddress}" />
+                                            <Label Grid.Column="0" Grid.Row="1" Text="Name:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding Name}" TextColor="#FF24618C" FontAttributes="Bold"/>
+                                            <Label Grid.Column="0" Grid.Row="2" Text="Updated:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding Updated}" />
+                                            <Label Grid.Column="0" Grid.Row="3" Text="RSSI:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="3" Text="{Binding Proximity.Current, StringFormat='{0:N} db'}" />
+                                            <Label Grid.Column="0" Grid.Row="4" Text="Avg. Rssi:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="4" Text="{Binding Proximity.Average, StringFormat='{0:N} db'}" />
+                                            <Label Grid.Column="0" Grid.Row="5" Text="TX Power:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="5" Text="{Binding Proximity.TxPower}" />
+                                            <Label Grid.Column="0" Grid.Row="6" Text="Proximity:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="6" Text="{Binding Proximity.ApproxDistance}" />
+                                            <Label Grid.Column="0" Grid.Row="7" Text="Services:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="7" Text="{Binding Services}" />
+                                            <Label Grid.Column="0" Grid.Row="8" Text="Company Name:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="8" Text="{Binding Company}" HorizontalOptions="FillAndExpand" TextColor="#FF24618C" FontAttributes="Bold"/>
+                                            <Label Grid.Column="0" Grid.Row="9" Text="Manufacturer Data:" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Grid.Row="9" Text="{Binding ManufacturerData}" HorizontalOptions="FillAndExpand"/>
+                                                <Label Grid.Column="1" Grid.Row="10" Text="More..." HorizontalOptions="End"
+                                                       FontAttributes="Bold" TextColor="#FF24618C" Margin="0,3,8,3">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding MoreCommand}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            </Grid>
+                                    </Grid>
+                                    <!--</StackLayout>-->
+                                </ContentView>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+            <Grid Grid.Row="1" IsVisible="{Binding DevicesFound, Converter={converters:NotConverter}}" VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="{extensions:ImageResource BlueScan.Images.Bluetooth256.png}" />
+                <Label Grid.Row="1" Text="No devices found." TextColor="Gray" 
+                       VerticalTextAlignment="Start"
+                       HorizontalOptions="Center" FontSize="Medium"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

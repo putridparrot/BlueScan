@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Apple128.png" />
+    <None Remove="Images\Apple24.png" />
+    <None Remove="Images\Apple256.png" />
+    <None Remove="Images\Apple32.png" />
+    <None Remove="Images\Apple48.png" />
+    <None Remove="Images\Bluetooth128.png" />
+    <None Remove="Images\Bluetooth24.png" />
+    <None Remove="Images\Bluetooth256.png" />
+    <None Remove="Images\Bluetooth32.png" />
+    <None Remove="Images\Bluetooth48.png" />
+    <None Remove="Images\Windows128.png" />
+    <None Remove="Images\Windows24.png" />
+    <None Remove="Images\Windows256.png" />
+    <None Remove="Images\Windows32.png" />
+    <None Remove="Images\Windows48.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Apple24.png" />
+    <EmbeddedResource Include="Images\Bluetooth24.png" />
+    <EmbeddedResource Include="Images\Bluetooth256.png" />
+    <EmbeddedResource Include="Images\Windows24.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.35" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991221" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bluetooth.Service\Bluetooth.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SimpleCharts">
+      <HintPath>..\..\Libraries\SimpleCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleCharts.Forms">
+      <HintPath>..\..\Libraries\SimpleCharts.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\AboutPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\HistoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MorePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\OptionsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ServicesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
